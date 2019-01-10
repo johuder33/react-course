@@ -17,6 +17,10 @@ class Storage {
     return this.getItem(STORAGE_TOKEN_KEY);
   }
 
+  setSession(token) {
+    this.setItem(STORAGE_TOKEN_KEY, token);
+  }
+
   clear() {
     return this.engine.clear();
   }
