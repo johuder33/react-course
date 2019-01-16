@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { WithAuthChecker } from "./withAuthChecker";
+import MenuAppBar from "../components/AppBar";
+
 
 class LayoutApp extends Component {
   render() {
-    return <div>Ya estas dentro de la app</div>;
+    return <MenuAppBar/>;
   }
 }
 

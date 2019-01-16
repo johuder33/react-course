@@ -68,7 +68,7 @@ class Login extends Component {
             <TextField
               onChange={this.onChange}
               name={"password"}
-              placeholder={"Contrasela"}
+              placeholder={"Contraseña"}
               type={"password"}
               fullWidth
               value={password}
