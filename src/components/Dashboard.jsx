@@ -10,7 +10,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Grid container xs={12}>
+        <Grid container >
           <Grid item xs={12}>
             <Search />
           </Grid>

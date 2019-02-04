@@ -8,13 +8,13 @@ import SideMenu from "../components/SideMenu";
 class LayoutApp extends Component {
   render() {
     return (
-      <Grid container xs={12}>
+      <Grid container>
         <Grid item xs={2} >
           <SideMenu />
         </Grid>
         <Grid item  xs={10} >
           <MenuAppBar />
-          <Grid item >
+          <Grid item xs={12}>
             <Content />
           </Grid>
         </Grid>
