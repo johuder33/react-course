@@ -40,9 +40,9 @@ class MenuAppBar extends Component {
 
         return (
             <div className={classes.root}>
-                <AppBar position="static">
+                <AppBar position="static" className="App-bars">
                     <Toolbar>
-                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                        <IconButton color="inherit" aria-label="Menu">
                         </IconButton>
                         <Typography variant="h6" color="inherit" className={classes.grow}>
                             Dashboard
