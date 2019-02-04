@@ -1,5 +1,6 @@
 import React, { Components, Component } from "react";
 import List from "@material-ui/core/ListSubheader";
+import { green } from "@material-ui/core/colors";
 
 export default class listHero extends Component {
 
@@ -19,12 +20,20 @@ export default class listHero extends Component {
             .then(function (response) {
                 return response.json();
             })
-            .then(data => this.setState({data:data.data}));
+            .then(data => this.setState({data:data.data, isLoaded:true}));
     }
     render() {
-        const { data } = this.state;
-        console.log(data.results);
+        const { data, isLoaded } = this.state;
+
+        if(isLoaded){
+            console.log(data.results); console.log('is', isLoaded);
+           
+        }
+        
+        
         return (<div>
+            {/* {!isLoaded && <div style={{color:green}}></div>} */}
+            {/* {error && <div style={{ color: "red" }}>{error}</div>} */}
             {/* <ul>
                 {hero.map(hero =>
                     <li key={hero.objectID}>
