@@ -1,6 +1,8 @@
 import React, { Components, Component } from "react";
 import List from "@material-ui/core/ListSubheader";
 import { green } from "@material-ui/core/colors";
+import  CardHero from "./CardHero";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default class listHero extends Component {
 
@@ -26,8 +28,7 @@ export default class listHero extends Component {
         const { data, isLoaded } = this.state;
 
         if(isLoaded){
-            console.log(data.results); console.log('is', isLoaded);
-           
+            console.log(data.results);
         }
         
         

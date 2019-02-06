@@ -15,6 +15,7 @@ export default class CardHero extends Component{
     }
 
     render(){
+        // {!is}
         return(<div>
             <Card>
             <CardHeader>
