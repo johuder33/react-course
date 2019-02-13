@@ -9,9 +9,6 @@ import CardActions from '@material-ui/core/CardActions';
 export default class CardHero extends Component{
     constructor(props){
         super(props);
-        const state = {
-            loading: false
-        }
     }
 
     render(){
