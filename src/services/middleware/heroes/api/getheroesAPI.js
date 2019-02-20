@@ -8,7 +8,9 @@ export const getHeroeAPI = (next) => {
             return response.json();
         })
         .then(data => {
+           
             next(setHeroes(data.data.results));
             next(setLoading(false));
+           
         });
 };
