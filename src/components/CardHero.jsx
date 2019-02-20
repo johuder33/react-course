@@ -18,7 +18,6 @@ export default class CardHero extends Component{
             <CardHeader>
                 
             </CardHeader>
-
             </Card>
         </div>);
     }

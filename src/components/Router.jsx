@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { configStore } from "../store";
 
 const store = configStore();
-
+console.log(store);
 export default class Router extends Component {
 
   render() {

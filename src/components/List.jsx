@@ -4,7 +4,7 @@ import { green } from "@material-ui/core/colors";
 import CardHero from "./CardHero";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { connect } from "react-redux";
-import { setHeroes, setLoading } from "../actions/heroAction"
+import { getHeroes} from "../actions/heroAction"
 
 
 class ListHero extends Component {
@@ -13,16 +13,8 @@ class ListHero extends Component {
         super(props);
     }
     getHeros(){
-        const {setHeroes, setLoading} = this.props;
-        setLoading(true);
-        fetch('https://gateway.marvel.com/v1/public/characters?ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(data => {
-                setHeroes(data.data.results)
-                setLoading(false);
-            });
+        const {loadHeroes} = this.props;
+        loadHeroes();
     }
     componentDidMount() {
         const { heroes } = this.props;
@@ -66,8 +58,11 @@ const MapStateToProps = (state)=>{
 const MapDispatchToProps = (dispatch)=>{
 
     return {
-        setHeroes: (heroes) => dispatch(setHeroes(heroes)),
-        setLoading: (loading)=>dispatch(setLoading(loading))
+        // anteriormente
+        // setHeroes: (heroes) => dispatch(setHeroes(heroes)),
+        // setLoading: (loading)=>dispatch(setLoading(loading))
+        // ahora
+        loadHeroes:()=> dispatch(getHeroes())
     }
 }
 
