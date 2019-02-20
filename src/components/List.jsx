@@ -1,47 +1,58 @@
-import React, { Components, Component } from "react";
-import List from "@material-ui/core/ListSubheader";
-import { green } from "@material-ui/core/colors";
+import React, { Component } from "react";
+import CardHero from "./CardHero";
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { connect } from "react-redux";
+import { getHeroes } from "../actions/heroAction"
 
-export default class listHero extends Component {
+
+class ListHero extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            data: [],
-            isLoaded: false
-        };
     }
-
-    componentWillMount(){
-        const {loadedCard} = this.state.isLoaded;
+    getHeros() {
+        const { loadHeroes } = this.props;
+        loadHeroes();
     }
     componentDidMount() {
-        fetch('https://gateway.marvel.com/v1/public/characters?ts=thesoer&apikey=001ac6c73378bbfff488a36141458af2&hash=72e5ed53d1398abb831c3ceec263f18b')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(data => this.setState({data:data.data, isLoaded:true}));
+        const { heroes } = this.props;
+        // if(heroes.length < 1){
+        if (heroes) {
+            this.getHeros();
+        }
     }
     render() {
-        const { data, isLoaded } = this.state;
-
-        if(isLoaded){
-            console.log(data.results); console.log('is', isLoaded);
-           
-        }
-        
-        
+        const { heroes, loading } = this.props;
+   
         return (<div>
-            {/* {!isLoaded && <div style={{color:green}}></div>} */}
-            {/* {error && <div style={{ color: "red" }}>{error}</div>} */}
-            {/* <ul>
-                {hero.map(hero =>
-                    <li key={hero.objectID}>
-                        <a href={hero.url}>{hit.title}</a>
-                    </li>
-                )}
-            </ul> */}
+            {loading && <LinearProgress/>}
+            {!loading && <CardHero hero={heroes}>
+
+            </CardHero>}
         </div>)
     }
 
 }
+const MapStateToProps = (state) => {
+
+    const { heroes } = state;
+    const { byIds, ids, loading } = heroes;
+    return {
+        loading,
+        heroes: ids.map((id) => {
+            return byIds[id]
+        })
+    }
+}
+const MapDispatchToProps = (dispatch) => {
+
+    return {
+        // anteriormente
+        // setHeroes: (heroes) => dispatch(setHeroes(heroes)),
+        // setLoading: (loading)=>dispatch(setLoading(loading))
+        // ahora
+        loadHeroes: () => dispatch(getHeroes())
+    }
+}
+
+export default connect(MapStateToProps, MapDispatchToProps)(ListHero)
