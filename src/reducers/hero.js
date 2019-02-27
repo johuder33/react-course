@@ -1,7 +1,14 @@
+import {SET_TOTALS} from "../constants";
 const initialState = {
     byIds: {},
     ids: [],
     loading: false,
+    pagination:{
+        count: 0,
+        limit: 0, 
+        offset:0,
+        total: 0
+    }
 
 }
 const HeroesReducer = (state = initialState, action) => {
@@ -23,12 +30,15 @@ const HeroesReducer = (state = initialState, action) => {
             nextState = {...state, ids:ids, byIds:byIds};
             return nextState;
         }
+        case SET_TOTALS:{
+            nextState = {...state, pagination:payload}
+            return nextState;
+        }
         case 'SET_LOADING': {
             // nextState = state;
             nextState = {...state, loading:payload.loading}
             return nextState;
         }
-
         default:
             return state;
             

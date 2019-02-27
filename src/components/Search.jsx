@@ -9,8 +9,10 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 
-import {Paper, Box} from "@material-ui/core";
-
+import { Paper, Box } from "@material-ui/core";
+import { connect } from "react-redux"
+import { searchHero } from "../actions/fetchHeros"
+import {setLoading} from "../actions/heroAction";
 
 
 
@@ -80,6 +82,8 @@ class PrimarySearchAppBar extends React.Component {
     mobileMoreAnchorEl: null,
   };
 
+  timer;
+
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
@@ -96,6 +100,22 @@ class PrimarySearchAppBar extends React.Component {
   handleMobileMenuClose = () => {
     this.setState({ mobileMoreAnchorEl: null });
   };
+  handlerEventImput = (event) => {
+
+    const value = event.target.value;
+
+    this.handlerTimer(value)
+  }
+  handlerTimer = (value) => {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    const { search_text, set_loading } = this.props;
+    set_loading(true)
+    this.timer = setTimeout(() => {
+      search_text(value);
+    }, 750);
+  }
 
   render() {
     const { classes } = this.props;
@@ -103,29 +123,29 @@ class PrimarySearchAppBar extends React.Component {
     return (
       <div className={classes.root}>
 
-      <Paper elevation={0}>
-      <AppBar position="static" className="App-bars">
-          <Toolbar>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+        <Paper elevation={0}>
+          <AppBar position="static" className="App-bars">
+            <Toolbar>
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  onChange={this.handlerEventImput}
+                  placeholder="Search Hero…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
               </div>
-              <InputBase
-                placeholder="Search Hero…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
-            
-          </Toolbar>
-        </AppBar>
- 
 
-      </Paper>
+            </Toolbar>
+          </AppBar>
 
-        
+
+        </Paper>
+
       </div>
     );
   }
@@ -135,4 +155,19 @@ PrimarySearchAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PrimarySearchAppBar);
+const MapDispatchToProps = (dispatch) => {
+
+  return {
+    // anteriormente
+    // setHeroes: (heroes) => dispatch(setHeroes(heroes)),
+    // setLoading: (loading)=>dispatch(setLoading(loading))
+    // ahora
+    search_text: (text) => dispatch(searchHero(text)),
+    set_loading: (arg) => dispatch(setLoading(arg))
+  }
+}
+
+const searchC = withStyles(styles)(PrimarySearchAppBar);
+
+
+export default connect(null, MapDispatchToProps)(searchC)

@@ -1,4 +1,4 @@
-import {ADD_HEROES, SET_LOADING,GET_HEROES} from "../constants"
+import {ADD_HEROES, SET_LOADING,GET_HEROES, SET_TOTALS} from "../constants"
 export const setHeroes = (heroes)=>{
     return {
         type: ADD_HEROES,
@@ -14,5 +14,12 @@ export const setLoading = (loading)=>{
 export const getHeroes = ()=>{
     return{
         type:GET_HEROES
+    }
+}
+
+export const setTotals = (payload) => {
+    return{
+        type: SET_TOTALS,
+        payload
     }
 }

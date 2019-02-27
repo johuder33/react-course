@@ -3,6 +3,8 @@ import CardHero from "./CardHero";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { connect } from "react-redux";
 import { getHeroes } from "../actions/heroAction"
+import {getHero} from "../actions/fetchHeros";
+import Pagination from "../components/Paginator"
 
 
 class ListHero extends Component {
@@ -24,12 +26,13 @@ class ListHero extends Component {
     render() {
         const { heroes, loading } = this.props;
    
-        return (<div>
-            {loading && <LinearProgress/>}
-            {!loading && <CardHero hero={heroes}>
-
-            </CardHero>}
-        </div>)
+        if(loading){
+            return <LinearProgress/>
+        }
+        return(<>
+            <CardHero hero={heroes}/>
+            <Pagination/>
+        </>)
     }
 
 }
@@ -51,7 +54,7 @@ const MapDispatchToProps = (dispatch) => {
         // setHeroes: (heroes) => dispatch(setHeroes(heroes)),
         // setLoading: (loading)=>dispatch(setLoading(loading))
         // ahora
-        loadHeroes: () => dispatch(getHeroes())
+        loadHeroes: () => dispatch(getHero())
     }
 }
 
